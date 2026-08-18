@@ -14,6 +14,7 @@ build/
 .env.local
 .env.*.local
 !.env.example
+.env.production
 
 # Node
 frontend/node_modules/

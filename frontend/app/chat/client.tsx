@@ -72,17 +72,17 @@ export function ChatClient() {
     setLoading(true);
 
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"}/chat`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            message: text,
-            history: messages.map((m) => ({ role: m.role, content: m.content })),
-          }),
-        }
-      );
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: input,
+          history: messages.filter(m => m.id !== "welcome").map(m => ({
+            role: m.role,
+            content: m.content
+          }))
+        }),
+      });
 
       if (res.ok) {
         const data = await res.json();
